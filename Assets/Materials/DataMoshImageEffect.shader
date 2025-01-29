@@ -54,14 +54,14 @@ Shader "Hidden/DataMoshImageEffect"
 
             fixed4 frag (v2f i) : SV_Target
             { 
-                float2 uvr = round(i.uv*(_ScreenParams.xy/64))/(_ScreenParams.xy/64);
+                float2 uvr = round(i.uv*(_ScreenParams.xy/(32*nrand(_Time.x, _Time.y))))/(_ScreenParams.xy/(32*nrand(_Time.x, _Time.y)));
                 float4 mot = tex2D(_CameraMotionVectorsTexture,uvr);
                 float n = nrand(_Time.x, uvr.x+uvr.y*_ScreenParams.x);
  
                 #if UNITY_UV_STARTS_AT_TOP
-                float2 mvuv = float2(i.uv.x+2*mot.r,i.uv.y-2*mot.g);
+                float2 mvuv = float2(i.uv.x+5*mot.r,i.uv.y-5*mot.g);
                 #else
-                float2 mvuv = float2(i.uv.x+2*mot.r,1-i.uv.y+2*mot.g);
+                float2 mvuv = float2(i.uv.x+5*mot.r,1-i.uv.y+5*mot.g);
                 #endif
                 fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_FrameBuffer, mvuv), lerp(0,round(1-(n)/1.4),_Button));
                 return col;

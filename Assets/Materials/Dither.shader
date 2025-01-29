@@ -10,6 +10,9 @@ Shader "Hidden/Dither"
         _BL ("Direction", Vector) = (0.0, 0.0, 0.0, 0.0)
         _TR ("Direction", Vector) = (0.0, 0.0, 0.0, 0.0)
         _BR ("Direction", Vector) = (0.0, 0.0, 0.0, 0.0)
+        
+        //_Tiling("Tiling", Float) = 192.0
+        //_Threshold("Threshold", Float) = 0.1
     }
     SubShader
     {
