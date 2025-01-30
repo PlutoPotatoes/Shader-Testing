@@ -28,11 +28,14 @@ public class DatamoshEffect : MonoBehaviour
         {
             DMoshStr+=0.2f;
             Shader.SetGlobalFloat("_DMOSHSTR", DMoshStr);
+            Shader.SetGlobalFloat("_VariableButton", 1f);
+
 
         }
         else
         {
             DMoshStr = 0f;
+            updateButton();
         }
     }
 
@@ -44,5 +47,14 @@ public class DatamoshEffect : MonoBehaviour
             Shader.SetGlobalTexture("_FrameBuffer", frameBuffer.Dequeue());
         }
         Graphics.Blit(source, destination, DMmat);
+    }
+
+    private void updateButton()
+    {
+        float buttonVal = Shader.GetGlobalFloat("_VariableButton");
+        if (buttonVal != 0)
+        {
+            Shader.SetGlobalFloat("_VariableButton", Mathf.Max(buttonVal-Time.deltaTime, 0f));
+        }
     }
 }

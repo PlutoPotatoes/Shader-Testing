@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DataMosh
-  m_Shader: {fileID: 4800000, guid: c807692f14b6ce140b782b3dffbc060b, type: 3}
+  m_Shader: {fileID: 4800000, guid: ce98ba4bcf630954fadd43b64ac07a25, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

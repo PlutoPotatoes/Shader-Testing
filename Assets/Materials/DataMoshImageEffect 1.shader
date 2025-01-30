@@ -1,4 +1,4 @@
-Shader "Hidden/DataMoshImageEffect"
+Shader "Custom/DataMoshImageEffect"
 {
     Properties
     {
@@ -45,6 +45,7 @@ Shader "Hidden/DataMoshImageEffect"
             int _Button;
             float _DMOSHSTR;
             sampler2D _FrameBuffer;
+            float _VariableButton;
 
 
             float nrand(float x, float y)
@@ -59,13 +60,14 @@ Shader "Hidden/DataMoshImageEffect"
                 float n = nrand(_Time.x, uvr.x+uvr.y*_ScreenParams.x);
  
                 #if UNITY_UV_STARTS_AT_TOP
-                float2 mvuv = float2(i.uv.x+5*mot.r,i.uv.y-5*mot.g);
+                float2 mvuv = float2(i.uv.x+2*mot.r,i.uv.y-2*mot.g);
                 #else
-                float2 mvuv = float2(i.uv.x+5*mot.r,1-i.uv.y+5*mot.g);
+                float2 mvuv = float2(i.uv.x+2*mot.r,1-i.uv.y+2*mot.g);
                 #endif
-                fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_FrameBuffer, mvuv), lerp(0,round(1-(n)/1.4),_Button));
+                fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_FrameBuffer, mvuv), lerp(0,round(1-(n)/1.4),_VariableButton));
                 return col;
 
+                //
                 // Frame Buffer works but only buffering one frame to offput. 
                 //next step smear the frame accross the frame;
 
