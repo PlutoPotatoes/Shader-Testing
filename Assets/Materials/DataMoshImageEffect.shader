@@ -60,9 +60,9 @@ Shader "Custom/DataMoshImageEffect"
                 float n = nrand(_Time.x, uvr.x+uvr.y*_ScreenParams.x);
  
                 #if UNITY_UV_STARTS_AT_TOP
-                float2 mvuv = float2(i.uv.x+2*mot.r,i.uv.y-2*mot.g);
+                float2 mvuv = float2(i.uv.x-4*mot.r,i.uv.y-4*mot.g);
                 #else
-                float2 mvuv = float2(i.uv.x+2*mot.r,1-i.uv.y+2*mot.g);
+                float2 mvuv = float2(i.uv.x-4*mot.r,1-i.uv.y+4*mot.g);
                 #endif
                 fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_FrameBuffer, mvuv), lerp(0,round(1-(n)/1.4),_VariableButton));
                 return col;

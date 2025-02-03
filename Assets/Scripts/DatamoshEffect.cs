@@ -6,17 +6,21 @@ using System.Collections.Generic;
 
 public class DatamoshEffect : MonoBehaviour
 {
+    [Tooltip("Value to multiply time by as shader fades (1 = 1 second, 2 = 0.5 seconds)")]
+    [SerializeField] float fadeSpeed = 1;
     public Material DMmat;
     private float DMoshStr;
     private RenderTexture pr;
     private Queue<RenderTexture> frameBuffer = new Queue<RenderTexture>();
     
+    private Camera mainCam; 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        this.GetComponent<Camera>().depthTextureMode = DepthTextureMode.MotionVectors;
+        mainCam = this.GetComponent<Camera>();
+        mainCam.depthTextureMode = DepthTextureMode.MotionVectors;
 
     }
 
@@ -54,7 +58,7 @@ public class DatamoshEffect : MonoBehaviour
         float buttonVal = Shader.GetGlobalFloat("_VariableButton");
         if (buttonVal != 0)
         {
-            Shader.SetGlobalFloat("_VariableButton", Mathf.Max(buttonVal-Time.deltaTime, 0f));
+            Shader.SetGlobalFloat("_VariableButton", Mathf.Max(buttonVal-(fadeSpeed*Time.deltaTime), 0f));
         }
     }
 }

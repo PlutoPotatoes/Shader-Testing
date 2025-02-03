@@ -12,7 +12,7 @@ public class MovingPlatform : MonoBehaviour
 
     private Transform currentTarget;
     private bool paused;
-
+    public bool carryingPlayer;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,6 +32,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void movePlatform()
     {
+        
         float dist = Vector3.Distance(platform.transform.position, currentTarget.transform.position);
 
         if(dist == 0f)
@@ -43,8 +44,13 @@ public class MovingPlatform : MonoBehaviour
 
         if (!paused)
         {
+            if (carryingPlayer)
+            {
+                Shader.SetGlobalFloat("_VariableButton", 1);
+            }
             platform.transform.position = Vector3.MoveTowards(platform.transform.position, currentTarget.position, moveSpeed*Time.deltaTime);
         }
+
     }
     
     IEnumerator platformControl()

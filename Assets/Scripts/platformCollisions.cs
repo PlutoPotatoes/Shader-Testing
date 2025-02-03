@@ -9,8 +9,11 @@ public class platformCollisions : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        print(other.gameObject);
+
         if (other.tag == "Player")
         {
+            platformScript.carryingPlayer = true;
             other.transform.SetParent(this.transform, true);
 
         }
@@ -22,6 +25,7 @@ public class platformCollisions : MonoBehaviour
         {
             // trying to get platform momentum to effect player on platform exit
             //other.GetComponent<Rigidbody>().AddForce(platformScript.exitForce(), ForceMode.Impulse);
+            platformScript.carryingPlayer = false;
             other.transform.SetParent(null, true);
         }
     }
