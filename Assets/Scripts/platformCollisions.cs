@@ -9,7 +9,6 @@ public class platformCollisions : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject);
 
         if (other.tag == "Player")
         {
