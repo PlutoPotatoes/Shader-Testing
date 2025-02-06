@@ -50,6 +50,15 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
+		[Tooltip("Active Player Camera")]
+		public Camera mainCam;
+		[Tooltip("Layers to Detect for Interaction")]
+		public LayerMask interactLayers;
+
+		//testing vars
+
+		public GameObject playerCapsule;
+		public float rotationSpeed;
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
@@ -185,6 +194,7 @@ namespace StarterAssets
 
 			// normalise input direction
 			Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+			Vector3 rotDir = new Vector3(_input.move.x, 0, _input.move.y);
 
 			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is a move input rotate player when the player is moving
@@ -192,11 +202,18 @@ namespace StarterAssets
 			{
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+				Quaternion newRotation = Quaternion.LookRotation(rotDir.normalized, Vector3.up);
+				playerCapsule.transform.rotation = Quaternion.RotateTowards(playerCapsule.transform.rotation, newRotation, rotationSpeed*Time.deltaTime);
+
+
 			}
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
 		}
+
+
 
 		private void JumpAndGravity()
 		{
