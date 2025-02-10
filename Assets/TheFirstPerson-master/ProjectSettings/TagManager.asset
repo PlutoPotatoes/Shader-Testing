@@ -2,22 +2,18 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 3
-  tags:
-  - CinemachineTarget
-  - Artifact
-  - Node
-  - Ground
+  serializedVersion: 2
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
-  - Player
-  - Artifact
   - 
+  - 
+  - Player
   - 
   - 
   - 
@@ -45,8 +41,3 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Ground 0
-    uniqueID: 4242082557
-    locked: 0
-  m_RenderingLayers:
-  - Default

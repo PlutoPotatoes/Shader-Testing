@@ -3,11 +3,14 @@ using System.Collections.Generic;
 
 public class playerInteract : MonoBehaviour
 {
+    public GameObject holdPoint;
     [SerializeField] SphereCollider grabZone;
 
     private string[] interactTags = {"Node"};
     private List<string> interactable;
     private List<Collider> inYaZone = new List<Collider>();
+    private NodeGrab heldObject;
+    
 
 
 
@@ -25,7 +28,7 @@ public class playerInteract : MonoBehaviour
 
     private void Interact()
     {
-        if (Input.GetMouseButtonDown(1) && inYaZone.Count > 0)
+        if (Input.GetMouseButtonDown(1) && heldObject == null && inYaZone.Count > 0)
         {
             Collider interacting = inYaZone[0];
             switch (interacting.tag)
@@ -35,6 +38,9 @@ public class playerInteract : MonoBehaviour
                     break;
 
             }
+        }else if(heldObject !=null && Input.GetMouseButtonDown(1))
+        {
+            releaseObject();
         }
     }
 
@@ -56,7 +62,16 @@ public class playerInteract : MonoBehaviour
 
     private void grabNode(Collider node)
     {
-        print("grabbing " + node.gameObject);
+        heldObject = node.gameObject.GetComponent<NodeGrab>();
+        heldObject.grab(gameObject, holdPoint);
+    }
+
+    private void releaseObject()
+    {
+        heldObject.release();
+        heldObject = null;
+
+
     }
 
 
