@@ -19,7 +19,8 @@ public class MovingPlatform : MonoBehaviour
     void Start()
     {
         //  transform.position = startPoint.position;
-        currentTarget = endPoint;
+
+        currentTarget = startPoint;
         platform.transform.position = startPoint.position;
         paused = false;
     }
@@ -32,12 +33,28 @@ public class MovingPlatform : MonoBehaviour
 
     private void movePlatform()
     {
-        
+
         float dist = Vector3.Distance(platform.transform.position, currentTarget.transform.position);
 
-        if(dist == 0f)
+        if(dist < 0.01f && !paused)
         {
-            currentTarget = (currentTarget == endPoint) ? startPoint : endPoint;
+            if(endPoint != null)
+            {
+                print(currentTarget);
+                if(currentTarget == endPoint)
+                {
+                    currentTarget = startPoint;
+                }
+                else
+                {
+                    currentTarget = endPoint;
+                }
+                //currentTarget = (currentTarget == endPoint) ? startPoint : endPoint;
+            }
+            else
+            {
+                currentTarget = startPoint;
+            }
             StartCoroutine(platformControl());
 
         }
@@ -48,7 +65,8 @@ public class MovingPlatform : MonoBehaviour
             {
                 Shader.SetGlobalFloat("_VariableButton", 1);
             }
-            platform.transform.position = Vector3.MoveTowards(platform.transform.position, currentTarget.position, moveSpeed*Time.deltaTime);
+            platform.transform.position = Vector3.MoveTowards(platform.transform.position, currentTarget.position, moveSpeed * Time.deltaTime);
+
         }
 
     }
@@ -60,22 +78,5 @@ public class MovingPlatform : MonoBehaviour
         paused = false;
     }
 
-
-    public Vector3 exitForce()
-    {
-        Vector3 force;
-
-        if (!paused)
-        {
-            force = Vector3.MoveTowards(platform.transform.position, currentTarget.position, 1) * moveSpeed;
-        }
-        else
-        {
-            force = Vector3.zero;
-
-        }
-
-        return force;
-    }
 
 }

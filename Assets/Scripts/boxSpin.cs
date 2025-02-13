@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class boxSpin : MonoBehaviour
 {
+    public bool onPedestal;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -11,6 +12,15 @@ public class boxSpin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(new Vector3(0, 1, 0));
+        if (onPedestal)
+        {
+            transform.Rotate(new Vector3(1, 1, 1));
+        }
     }
+
+    public void resetRotation()
+    {
+        transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+    }
+
 }

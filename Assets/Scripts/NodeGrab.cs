@@ -41,7 +41,6 @@ public class NodeGrab : MonoBehaviour
                 if (pedHold != null)
                 {
                     rb.position = pedHold.position;
-                    print("Resting on ped");
                 }
                 else
                 {
@@ -56,6 +55,10 @@ public class NodeGrab : MonoBehaviour
                 rb.position = holdPoint.transform.position;
             }
         }
+        else if(pedHold !=null)
+        {
+            pedGrab();
+        }
     }
         
     public void grab(GameObject player, GameObject playerHoldPoint)
@@ -64,8 +67,15 @@ public class NodeGrab : MonoBehaviour
         transform.position = playerHoldPoint.transform.position;
         holdPoint = playerHoldPoint.transform;
         isHeld = true;
+        pedHold = null;
         grabbableCollider.excludeLayers = excludedLayers;
         
+    }
+
+    private void pedGrab()
+    {
+        holdPoint = pedHold;
+        rb.useGravity = false;
     }
 
     public void release()
@@ -73,8 +83,7 @@ public class NodeGrab : MonoBehaviour
 
         if (onPedestal)
         {
-            holdPoint = pedHold;
-            print("Held on Ped");
+            pedGrab();
 
         }
         else

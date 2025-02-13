@@ -8,6 +8,8 @@ TagManager:
   - Artifact
   - Node
   - Ground
+  - Start Pedestal
+  - End Pedestal
   layers:
   - Default
   - TransparentFX

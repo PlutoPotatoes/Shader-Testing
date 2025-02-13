@@ -25,6 +25,7 @@ public class Pedestal : MonoBehaviour
         {
             node = other.gameObject;
             nodeScript = other.GetComponent<NodeGrab>();
+            other.GetComponent<boxSpin>().onPedestal = true;
             nodeScript.snapThreshold = 3f;
             nodeScript.onPedestal = true;
             nodeScript.pedHold = holdPoint;
@@ -37,6 +38,9 @@ public class Pedestal : MonoBehaviour
         {
             nodeScript.snapThreshold = 1f;
             nodeScript.onPedestal = false;
+            boxSpin spin = other.GetComponent<boxSpin>();
+            spin.onPedestal = false;
+            spin.resetRotation();
             nodeScript.pedHold = null;
             node = null;
             nodeScript = null;
