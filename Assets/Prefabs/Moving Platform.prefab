@@ -280,8 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44558653afa904d45ae712e9a8adc71c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 2609403122114916419}
-  endPoint: {fileID: 5027971464728890648}
+  startPoint: {fileID: 0}
+  endPoint: {fileID: 0}
   moveSpeed: 50
   pauseTime: 1
   platform: {fileID: 2527013626767991873}

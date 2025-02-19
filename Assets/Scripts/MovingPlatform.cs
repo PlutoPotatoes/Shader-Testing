@@ -15,20 +15,28 @@ public class MovingPlatform : MonoBehaviour
     public bool carryingPlayer;
 
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //  transform.position = startPoint.position;
 
-        currentTarget = startPoint;
-        platform.transform.position = startPoint.position;
+        StartCoroutine(platformCreate());
+        
+    }
+
+    IEnumerator platformCreate()
+    {
+        yield return new WaitForSeconds(0.1f);
         paused = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
         movePlatform();
+
     }
 
     private void movePlatform()
@@ -40,7 +48,6 @@ public class MovingPlatform : MonoBehaviour
         {
             if(endPoint != null)
             {
-                print(currentTarget);
                 if(currentTarget == endPoint)
                 {
                     currentTarget = startPoint;
@@ -78,5 +85,16 @@ public class MovingPlatform : MonoBehaviour
         paused = false;
     }
 
+    public void setPath(Transform[] path)
+    {
+        //node point = 0, paired node point = 1
 
+        startPoint = path[0];
+        endPoint = path[1];
+        currentTarget = endPoint;
+        paused = true;
+        platform.transform.position = startPoint.position;
+
+
+    }
 }
