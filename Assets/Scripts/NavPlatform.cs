@@ -1,0 +1,117 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class NavPlatform : MonoBehaviour
+{
+    [SerializeField] Transform startPoint;
+    [SerializeField] Transform endPoint;
+    [SerializeField] float pauseTime;
+    [SerializeField] NavMeshAgent agent;
+
+    public bool carryingPlayer;
+    public GameObject player;
+    private Vector3 currentTarget;
+
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        //  transform.position = startPoint.position;
+        StartCoroutine(platformCreate());
+        agent.updateRotation = false;
+    }
+
+    IEnumerator platformCreate()
+    {
+        yield return new WaitForSeconds(0.1f);
+        agent.isStopped = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        movePlatform();
+    }
+
+    private void movePlatform()
+    {
+
+        if(agent.remainingDistance <= 0.01f && !agent.isStopped)
+        {
+
+            if(currentTarget == endPoint.position)
+            {
+                currentTarget = startPoint.position;
+                print("going to start");
+            }
+            else
+            {
+                currentTarget = endPoint.position;
+                print("goint to end");
+            }
+
+            agent.SetDestination(currentTarget);
+            
+            StartCoroutine(platformPause());
+            
+        }
+
+        if (!agent.isStopped && carryingPlayer)
+        {
+            Shader.SetGlobalFloat("_VariableButton", 1);
+        }
+    }
+
+    IEnumerator platformPause()
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(pauseTime);
+        agent.isStopped = false;
+    }
+
+    public void setPath(Transform[] path)
+    {
+        //node point = 0, paired node point = 1
+
+        startPoint = path[0];
+        endPoint = path[1];
+        agent.SetDestination(startPoint.position);
+        currentTarget = startPoint.position;
+        transform.position = startPoint.position;
+        StartCoroutine(platformPause());
+
+
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.tag == "Player")
+        {
+            player = other.gameObject;
+            carryingPlayer = true;
+            other.transform.SetParent(this.transform, true);
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == player)
+        {
+            player = null;
+            carryingPlayer = false;
+            other.transform.SetParent(null, true);
+        }
+    }
+
+    public void jetisonPlayer()
+    {
+        if (carryingPlayer)
+        {
+            player.transform.SetParent(null);
+        }
+    }
+}

@@ -75,6 +75,8 @@ public class NodeGrab : MonoBehaviour
     private void pedGrab()
     {
         holdPoint = pedHold;
+        Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 40 * Time.deltaTime);
+        rb.MovePosition(dir);
         rb.useGravity = false;
     }
 
@@ -99,6 +101,7 @@ public class NodeGrab : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.tag == "Ground")
         {
             groundCollision = true;
@@ -107,9 +110,11 @@ public class NodeGrab : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+
         if (other.tag == "Ground")
         {
             groundCollision = false;
         }
+
     }
 }

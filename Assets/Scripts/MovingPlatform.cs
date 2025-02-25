@@ -13,6 +13,7 @@ public class MovingPlatform : MonoBehaviour
     private Transform currentTarget;
     private bool paused;
     public bool carryingPlayer;
+    public GameObject player;
 
 
 
@@ -22,7 +23,6 @@ public class MovingPlatform : MonoBehaviour
         //  transform.position = startPoint.position;
 
         StartCoroutine(platformCreate());
-        
     }
 
     IEnumerator platformCreate()
@@ -96,5 +96,13 @@ public class MovingPlatform : MonoBehaviour
         platform.transform.position = startPoint.position;
 
 
+    }
+
+    public void jetisonPlayer()
+    {
+        if (carryingPlayer)
+        {
+            player.transform.SetParent(null);
+        }
     }
 }

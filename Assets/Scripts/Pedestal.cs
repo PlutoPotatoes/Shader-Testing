@@ -78,7 +78,8 @@ public class Pedestal : MonoBehaviour
             //instantiate platform
             platformInstance = Instantiate(movingPlatformPrefab, platformDockPoint, true);
             nodeData.getPairedPedestal().platformInstance = this.platformInstance;
-            MovingPlatform platformScript = platformInstance.GetComponent<MovingPlatform>();
+            NavPlatform platformScript = platformInstance.GetComponentInChildren<NavPlatform>();
+            print(platformScript.ToString());
             platformScript.setPath(nodeData.getPath());
 
 
@@ -94,6 +95,9 @@ public class Pedestal : MonoBehaviour
             nodeData.getPairedPedestal().hasPlatform = false;
             nodeData.getPairedPedestal().platformInstance = null;
             hasPlatform = false;
+
+
+            platformInstance.GetComponentInChildren<NavPlatform>().jetisonPlayer();
             Destroy(platformInstance);
         }
 

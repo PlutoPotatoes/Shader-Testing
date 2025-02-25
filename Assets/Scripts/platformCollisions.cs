@@ -12,6 +12,7 @@ public class platformCollisions : MonoBehaviour
 
         if (other.tag == "Player")
         {
+            platformScript.player = other.gameObject;
             platformScript.carryingPlayer = true;
             other.transform.SetParent(this.transform, true);
 
@@ -22,6 +23,7 @@ public class platformCollisions : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            platformScript.player = null;
             // trying to get platform momentum to effect player on platform exit
             //other.GetComponent<Rigidbody>().AddForce(platformScript.exitForce(), ForceMode.Impulse);
             platformScript.carryingPlayer = false;
