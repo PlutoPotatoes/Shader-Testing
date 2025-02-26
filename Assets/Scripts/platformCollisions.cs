@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class platformCollisions : MonoBehaviour
 {
-    private MovingPlatform platformScript;
+    private NavPlatform platformScript;
     private void Start()
     {
-        platformScript = GetComponentInParent<MovingPlatform>();
+        platformScript = GetComponentInParent<NavPlatform>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -14,7 +14,8 @@ public class platformCollisions : MonoBehaviour
         {
             platformScript.player = other.gameObject;
             platformScript.carryingPlayer = true;
-            other.transform.SetParent(this.transform, true);
+            other.transform.SetParent(platformScript.transform, true);
+
 
         }
     }
@@ -24,10 +25,10 @@ public class platformCollisions : MonoBehaviour
         if (other.tag == "Player")
         {
             platformScript.player = null;
-            // trying to get platform momentum to effect player on platform exit
-            //other.GetComponent<Rigidbody>().AddForce(platformScript.exitForce(), ForceMode.Impulse);
             platformScript.carryingPlayer = false;
             other.transform.SetParent(null, true);
+
         }
     }
+
 }

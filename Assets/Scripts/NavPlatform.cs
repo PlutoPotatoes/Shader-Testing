@@ -8,6 +8,7 @@ public class NavPlatform : MonoBehaviour
     [SerializeField] Transform endPoint;
     [SerializeField] float pauseTime;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] GameObject platform;
 
     public bool carryingPlayer;
     public GameObject player;
@@ -43,12 +44,10 @@ public class NavPlatform : MonoBehaviour
             if(currentTarget == endPoint.position)
             {
                 currentTarget = startPoint.position;
-                print("going to start");
             }
             else
             {
                 currentTarget = endPoint.position;
-                print("goint to end");
             }
 
             agent.SetDestination(currentTarget);
@@ -84,7 +83,7 @@ public class NavPlatform : MonoBehaviour
 
     }
 
-
+    /*
     private void OnTriggerEnter(Collider other)
     {
 
@@ -92,21 +91,25 @@ public class NavPlatform : MonoBehaviour
         {
             player = other.gameObject;
             carryingPlayer = true;
-            other.transform.SetParent(this.transform, true);
+            other.transform.SetParent(this.transform, false);
+            print("player on");
 
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+
         if (other.gameObject == player)
         {
             player = null;
             carryingPlayer = false;
             other.transform.SetParent(null, true);
+            print("player off");
         }
-    }
 
+    }
+    */
     public void jetisonPlayer()
     {
         if (carryingPlayer)
