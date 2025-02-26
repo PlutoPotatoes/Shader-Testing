@@ -9,6 +9,7 @@ public class NavPlatform : MonoBehaviour
     [SerializeField] float pauseTime;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] GameObject platform;
+    [SerializeField] LineRenderer line;
 
     public bool carryingPlayer;
     public GameObject player;
@@ -21,6 +22,7 @@ public class NavPlatform : MonoBehaviour
         //  transform.position = startPoint.position;
         StartCoroutine(platformCreate());
         agent.updateRotation = false;
+        
     }
 
     IEnumerator platformCreate()
@@ -78,43 +80,35 @@ public class NavPlatform : MonoBehaviour
         agent.SetDestination(startPoint.position);
         currentTarget = startPoint.position;
         transform.position = startPoint.position;
+        setLine();
         StartCoroutine(platformPause());
 
+        
+
+
 
     }
 
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if (other.tag == "Player")
-        {
-            player = other.gameObject;
-            carryingPlayer = true;
-            other.transform.SetParent(this.transform, false);
-            print("player on");
-
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-
-        if (other.gameObject == player)
-        {
-            player = null;
-            carryingPlayer = false;
-            other.transform.SetParent(null, true);
-            print("player off");
-        }
-
-    }
-    */
     public void jetisonPlayer()
     {
         if (carryingPlayer)
         {
             player.transform.SetParent(null);
         }
+    }
+
+    private void setLine()
+    {
+        line.startWidth = 0.15f;
+        line.endWidth = 0.15f;
+        //line.positionCount = agent.path.corners.Length;
+        //line.SetPositions(agent.path.corners);
+        line.positionCount = 2;
+        line.SetPosition(0, startPoint.position);
+        line.SetPosition(0, endPoint.position);
+
+        print(line.positionCount);
+
+        
     }
 }
