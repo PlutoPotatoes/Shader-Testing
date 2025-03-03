@@ -14,6 +14,7 @@ public class NodeGrab : MonoBehaviour
     private bool groundCollision = false;
     public float snapThreshold;
     public Transform pedHold;
+    public Material mat;
 
     
 
@@ -22,6 +23,7 @@ public class NodeGrab : MonoBehaviour
     void Start()
     {
         grabbableCollider.excludeLayers &= (1 << excludedLayers);
+        mat = GetComponent<Renderer>().material;
 
     }
 
@@ -117,4 +119,5 @@ public class NodeGrab : MonoBehaviour
         }
 
     }
+    
 }

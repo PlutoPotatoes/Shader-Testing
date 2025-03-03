@@ -74,6 +74,16 @@ public class playerInteract : MonoBehaviour
 
     }
 
+    public void dropSpecificObject(string type)
+    {
+        if(heldObject.tag == type)
+        {
+            print("force drop");
+            releaseObject();
+        }
+    }
+
+
 
 
 }

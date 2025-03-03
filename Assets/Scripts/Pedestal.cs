@@ -69,18 +69,18 @@ public class Pedestal : MonoBehaviour
     {
         if (nodeData.hasCompletePath() && !hasPlatform)
         {
-            print("Create platform");
             //update pedestal bools for the pair
             nodeData.getPairedPedestal().hasPlatform = true;
 
             hasPlatform = true;
 
             //instantiate platform
-            platformInstance = Instantiate(movingPlatformPrefab, platformDockPoint, true);
+            platformInstance = Instantiate(movingPlatformPrefab, platformDockPoint, false);
+            platformInstance.transform.SetPositionAndRotation(platformDockPoint.position, Quaternion.identity);
             nodeData.getPairedPedestal().platformInstance = this.platformInstance;
             NavPlatform platformScript = platformInstance.GetComponentInChildren<NavPlatform>();
-            print(platformScript.ToString());
             platformScript.setPath(nodeData.getPath());
+            platformScript.setColor(nodeScript.mat.color);
 
 
         }
@@ -88,7 +88,6 @@ public class Pedestal : MonoBehaviour
 
     private void tryDestroyPlatform()
     {
-        print("destroy platforms");
         if (hasPlatform)
         {
 

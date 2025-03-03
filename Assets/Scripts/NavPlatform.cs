@@ -9,11 +9,12 @@ public class NavPlatform : MonoBehaviour
     [SerializeField] float pauseTime;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] GameObject platform;
-    [SerializeField] LineRenderer line;
+
 
     public bool carryingPlayer;
     public GameObject player;
     private Vector3 currentTarget;
+    private Material platMaterial;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,14 +22,17 @@ public class NavPlatform : MonoBehaviour
     {
         //  transform.position = startPoint.position;
         StartCoroutine(platformCreate());
+
         agent.updateRotation = false;
         
     }
 
     IEnumerator platformCreate()
     {
+        platform.transform.position = startPoint.position;
         yield return new WaitForSeconds(0.1f);
         agent.isStopped = false;
+
     }
 
     // Update is called once per frame
@@ -77,15 +81,10 @@ public class NavPlatform : MonoBehaviour
 
         startPoint = path[0];
         endPoint = path[1];
+        transform.position = startPoint.position;
         agent.SetDestination(startPoint.position);
         currentTarget = startPoint.position;
-        transform.position = startPoint.position;
-        setLine();
-        StartCoroutine(platformPause());
-
-        
-
-
+        agent.isStopped = true;
 
     }
 
@@ -95,20 +94,12 @@ public class NavPlatform : MonoBehaviour
         {
             player.transform.SetParent(null);
         }
+        agent.isStopped = true;
     }
 
-    private void setLine()
+    public void setColor(Color nodeColor)
     {
-        line.startWidth = 0.15f;
-        line.endWidth = 0.15f;
-        //line.positionCount = agent.path.corners.Length;
-        //line.SetPositions(agent.path.corners);
-        line.positionCount = 2;
-        line.SetPosition(0, startPoint.position);
-        line.SetPosition(0, endPoint.position);
-
-        print(line.positionCount);
-
-        
+        platform.GetComponent<Renderer>().material.color = nodeColor;
     }
+
 }

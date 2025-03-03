@@ -54,7 +54,8 @@ namespace StarterAssets
 		public Camera mainCam;
 		[Tooltip("Layers to Detect for Interaction")]
 		public LayerMask interactLayers;
-
+		[Tooltip("Player Respawn Point")]
+		public Transform respawnPoint;
 		//testing vars
 
 		public GameObject playerCapsule;
@@ -124,6 +125,11 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+
+			if(transform.position.y < -16)
+            {
+				respawn();
+            }
 		}
 
 		private void LateUpdate()
@@ -281,5 +287,13 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
+
+		public void respawn()
+		{
+			transform.position = respawnPoint.position;
+		}
 	}
+
+	
+
 }
