@@ -64,8 +64,9 @@ public class NavPlatform : MonoBehaviour
 
         if (!agent.isStopped && carryingPlayer)
         {
-            Shader.SetGlobalFloat("_VariableButton", 1);
+            Shader.SetGlobalFloat("_MoshStr", 1);
         }
+
     }
 
     IEnumerator platformPause()

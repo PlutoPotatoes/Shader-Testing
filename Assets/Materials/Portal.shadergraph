@@ -107,6 +107,9 @@
         },
         {
             "m_Id": "bae5054fb8fd4ea99fc0ddbf0eef620c"
+        },
+        {
+            "m_Id": "b5c7a5cf5f0840d09f616a4c39e5ed6e"
         }
     ],
     "m_GroupDatas": [],
@@ -191,9 +194,9 @@
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "3fdc7d5a69ec4e0792634b6c20ed4f95"
+                    "m_Id": "b5c7a5cf5f0840d09f616a4c39e5ed6e"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 0
             }
         },
         {
@@ -263,7 +266,7 @@
                 "m_Node": {
                     "m_Id": "3fdc7d5a69ec4e0792634b6c20ed4f95"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             }
         },
         {
@@ -297,15 +300,15 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "bae5054fb8fd4ea99fc0ddbf0eef620c"
+                    "m_Id": "b5c7a5cf5f0840d09f616a4c39e5ed6e"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "d2f4d2621f8840db8581e1eb314522cd"
+                    "m_Id": "3fdc7d5a69ec4e0792634b6c20ed4f95"
                 },
-                "m_SlotId": 2
+                "m_SlotId": 0
             }
         },
         {
@@ -449,6 +452,30 @@
     },
     "m_Labels": [],
     "m_Channel": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
+    "m_ObjectId": "017410d73b464d018898662dde7e7f08",
+    "m_Id": 1,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
 }
 
 {
@@ -941,8 +968,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1187.5555419921875,
-            "y": 765.333251953125,
+            "x": -1207.9998779296875,
+            "y": 1033.7777099609375,
             "width": 112.0,
             "height": 33.77783203125
         }
@@ -977,10 +1004,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1202.6666259765625,
-            "y": 1103.555419921875,
-            "width": 127.111083984375,
-            "height": 33.7777099609375
+            "x": -1422.2222900390625,
+            "y": 789.333251953125,
+            "width": 126.666748046875,
+            "height": 33.77777099609375
         }
     },
     "m_Slots": [
@@ -1145,10 +1172,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -878.2221069335938,
-            "y": 1060.8890380859375,
-            "width": 182.6666259765625,
-            "height": 248.444091796875
+            "x": -1187.111083984375,
+            "y": 736.4444580078125,
+            "width": 182.66656494140626,
+            "height": 248.44451904296876
         }
     },
     "m_Slots": [
@@ -1698,10 +1725,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -878.2221069335938,
-            "y": 765.3331909179688,
+            "x": -1064.4443359375,
+            "y": 1067.5555419921875,
             "width": 182.6666259765625,
-            "height": 248.444580078125
+            "height": 248.4444580078125
         }
     },
     "m_Slots": [
@@ -2149,6 +2176,44 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.TriangleWaveNode",
+    "m_ObjectId": "b5c7a5cf5f0840d09f616a4c39e5ed6e",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Triangle Wave",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -787.111083984375,
+            "y": 789.333251953125,
+            "width": 127.55560302734375,
+            "height": 93.7777099609375
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "c87d32d8152b4fa08627f3c198a4e4eb"
+        },
+        {
+            "m_Id": "017410d73b464d018898662dde7e7f08"
+        }
+    ],
+    "synonyms": [
+        "sawtooth wave"
+    ],
+    "m_Precision": 0,
+    "m_PreviewExpanded": false,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "b831dd0f65d2482da451d595d54289f5",
     "m_Group": {
@@ -2526,6 +2591,30 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
+    "m_ObjectId": "c87d32d8152b4fa08627f3c198a4e4eb",
+    "m_Id": 0,
+    "m_DisplayName": "In",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "In",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
     }
 }
 

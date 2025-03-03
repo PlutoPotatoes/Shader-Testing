@@ -45,7 +45,7 @@ Shader "Custom/DataMoshImageEffect"
             int _Button;
             float _DMOSHSTR;
             sampler2D _FrameBuffer;
-            float _VariableButton;
+            float _MoshStr;
 
 
             float nrand(float x, float y)
@@ -64,7 +64,7 @@ Shader "Custom/DataMoshImageEffect"
                 #else
                 float2 mvuv = float2(i.uv.x-4*mot.r,1-i.uv.y+4*mot.g);
                 #endif
-                fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_FrameBuffer, mvuv), lerp(0,round(1-(n)/1.4),_VariableButton));
+                fixed4 col = lerp(tex2D(_MainTex, i.uv), tex2D(_FrameBuffer, mvuv), lerp(0,round(1-(n)/1.4),_MoshStr));
                 return col;
 
                 //

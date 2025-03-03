@@ -21,12 +21,15 @@ public class DatamoshEffect : MonoBehaviour
     {
         mainCam = this.GetComponent<Camera>();
         mainCam.depthTextureMode = DepthTextureMode.MotionVectors;
+        Shader.SetGlobalFloat("_MoshStr", 0);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        fadeEffectOut();
+        /*
         Shader.SetGlobalInteger("_Button", Input.GetButton("Fire1") ? 1 : 0);
         if (Input.GetButton("Fire1"))
         {
@@ -41,6 +44,7 @@ public class DatamoshEffect : MonoBehaviour
             DMoshStr = 0f;
             updateButton();
         }
+        */
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -53,12 +57,12 @@ public class DatamoshEffect : MonoBehaviour
         Graphics.Blit(source, destination, DMmat);
     }
 
-    private void updateButton()
+    private void fadeEffectOut()
     {
-        float buttonVal = Shader.GetGlobalFloat("_VariableButton");
+        float buttonVal = Shader.GetGlobalFloat("_MoshStr");
         if (buttonVal != 0)
         {
-            Shader.SetGlobalFloat("_VariableButton", Mathf.Max(buttonVal-(fadeSpeed*Time.deltaTime), 0f));
+            Shader.SetGlobalFloat("_MoshStr", Mathf.Max((Mathf.Abs(buttonVal) -(fadeSpeed*Time.deltaTime)) * Mathf.Sign(buttonVal), 0f));
         }
     }
 }

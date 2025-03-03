@@ -10,6 +10,7 @@ TagManager:
   - Ground
   - Start Pedestal
   - End Pedestal
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Artifact
   - NavMesh
   - Platform
-  - 
+  - Portal
   - 
   - 
   - 

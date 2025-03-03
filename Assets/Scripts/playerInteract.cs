@@ -6,7 +6,7 @@ public class playerInteract : MonoBehaviour
     public GameObject holdPoint;
     [SerializeField] SphereCollider grabZone;
 
-    private string[] interactTags = {"Node"};
+    private string[] interactTags = {"Node", "Portal"};
     private List<string> interactable;
     private List<Collider> inYaZone = new List<Collider>();
     private NodeGrab heldObject;
@@ -23,10 +23,11 @@ public class playerInteract : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Interact();
+        pickUp();
+        interact();
     }
 
-    private void Interact()
+    private void pickUp()
     {
         if (Input.GetMouseButtonDown(1) && heldObject == null && inYaZone.Count > 0)
         {
@@ -81,6 +82,28 @@ public class playerInteract : MonoBehaviour
             print("force drop");
             releaseObject();
         }
+    }
+
+    private void interact()
+    {
+        if (Input.GetKeyDown("e") && inYaZone.Count > 0)
+        {
+            Collider interact = inYaZone[0];
+            switch (interact.tag)
+            {
+                case "Portal":
+                    portalInteract(interact);
+                    break;
+            }
+        }
+    }
+
+    private void portalInteract(Collider interact)
+    {
+        Portal portal = interact.gameObject.GetComponent<Portal>();
+        transform.parent.position = portal.destination.position;
+        portal.announceMessage();
+
     }
 
 
