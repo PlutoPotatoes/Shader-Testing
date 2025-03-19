@@ -10,6 +10,7 @@ public class playerInteract : MonoBehaviour
     private List<string> interactable;
     private List<Collider> inYaZone = new List<Collider>();
     private NodeGrab heldObject;
+    public bool onPlat = false;
     
 
 
@@ -63,8 +64,11 @@ public class playerInteract : MonoBehaviour
 
     private void grabNode(Collider node)
     {
-        heldObject = node.gameObject.GetComponent<NodeGrab>();
-        heldObject.grab(gameObject, holdPoint);
+        if (!onPlat)
+        {
+            heldObject = node.gameObject.GetComponent<NodeGrab>();
+            heldObject.grab(gameObject, holdPoint);
+        }
     }
 
     private void releaseObject()

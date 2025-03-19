@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using System.Collections;
 #endif
 
 namespace StarterAssets
@@ -56,6 +57,11 @@ namespace StarterAssets
 		public LayerMask interactLayers;
 		[Tooltip("Player Respawn Point")]
 		public Transform respawnPoint;
+		[Tooltip("Player Dash Speed")]
+		public float dashSpeed;
+		[Tooltip("Player Dash Length")]
+		public float dashLength;
+
 		//testing vars
 
 		public GameObject playerCapsule;
@@ -69,10 +75,15 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
+		private Vector3 inputDirection;
+		private float dashCooldownTimer;
+		private const float dashCooldown = 0.5f;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+
+		
 
 	
 #if ENABLE_INPUT_SYSTEM
@@ -125,11 +136,12 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-
+			dash();
 			if(transform.position.y < -16)
             {
 				respawn();
             }
+			cooldowns();
 		}
 
 		private void LateUpdate()
@@ -199,7 +211,7 @@ namespace StarterAssets
 			}
 
 			// normalise input direction
-			Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+			inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 			Vector3 rotDir = new Vector3(_input.move.x, 0, _input.move.y);
 
 			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -220,7 +232,35 @@ namespace StarterAssets
 		}
 
 
+		private void dash()
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && dashCooldownTimer <= 0)
+            {
+				StartCoroutine(dashHandler());
+				dashCooldownTimer = dashCooldown;
+            }
+        }
 
+		IEnumerator dashHandler()
+        {
+			float startTime = Time.time;
+
+			while(Time.time < startTime + dashLength)
+            {
+				_controller.Move(inputDirection * dashSpeed * Time.deltaTime);
+
+				yield return null;
+            }
+
+        }
+
+        private void cooldowns()
+        {
+			if(dashCooldownTimer > 0)
+            {
+				dashCooldownTimer -= Time.deltaTime;
+            }
+        }
 		private void JumpAndGravity()
 		{
 			if (Grounded)

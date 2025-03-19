@@ -89,13 +89,14 @@ public class NavPlatform : MonoBehaviour
 
     }
 
-    public void jetisonPlayer()
+    public void destroyPlatform()
     {
         if (carryingPlayer)
         {
             player.transform.SetParent(null);
         }
         agent.isStopped = true;
+        Destroy(gameObject);
     }
 
     public void setColor(Color nodeColor)

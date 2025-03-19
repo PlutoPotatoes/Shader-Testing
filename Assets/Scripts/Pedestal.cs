@@ -39,6 +39,7 @@ public class Pedestal : MonoBehaviour
             nodeScript.onPedestal = true;
             nodeScript.pedHold = holdPoint;
             nodeData.setPedestal(this);
+            nodeScript.release();
             tryCreateRoute();
 
 
@@ -90,14 +91,10 @@ public class Pedestal : MonoBehaviour
     {
         if (hasPlatform)
         {
-
+            platformInstance.GetComponentInChildren<NavPlatform>().destroyPlatform();
             nodeData.getPairedPedestal().hasPlatform = false;
             nodeData.getPairedPedestal().platformInstance = null;
             hasPlatform = false;
-
-
-            platformInstance.GetComponentInChildren<NavPlatform>().jetisonPlayer();
-            Destroy(platformInstance);
         }
 
     }

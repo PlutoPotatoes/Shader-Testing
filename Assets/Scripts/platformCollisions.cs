@@ -7,7 +7,7 @@ public class platformCollisions : MonoBehaviour
     {
         platformScript = GetComponentInParent<NavPlatform>();
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
 
         if (other.tag == "Player")
@@ -15,6 +15,8 @@ public class platformCollisions : MonoBehaviour
             platformScript.player = other.gameObject;
             platformScript.carryingPlayer = true;
             other.transform.SetParent(platformScript.transform, true);
+            other.gameObject.GetComponentInChildren<playerInteract>().onPlat = true;
+
 
         }
     }
@@ -26,6 +28,8 @@ public class platformCollisions : MonoBehaviour
             platformScript.player = null;
             platformScript.carryingPlayer = false;
             other.transform.SetParent(null, true);
+            other.gameObject.GetComponentInChildren<playerInteract>().onPlat = false;
+
 
         }
     }

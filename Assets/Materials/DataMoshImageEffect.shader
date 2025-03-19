@@ -55,7 +55,7 @@ Shader "Custom/DataMoshImageEffect"
 
             fixed4 frag (v2f i) : SV_Target
             { 
-                float2 uvr = round(i.uv*(_ScreenParams.xy/(32*nrand(_Time.x, _Time.y))))/(_ScreenParams.xy/(32*nrand(_Time.x, _Time.y)));
+                float2 uvr = round(i.uv*(_ScreenParams.xy/((32*max(abs(_MoshStr), 0.01))*nrand(_Time.x, _Time.y))))/(_ScreenParams.xy/((32*max(abs(_MoshStr), 0.01))*nrand(_Time.x, _Time.y)));
                 float4 mot = tex2D(_CameraMotionVectorsTexture,uvr);
                 float n = nrand(_Time.x, uvr.x+uvr.y*_ScreenParams.x);
  
