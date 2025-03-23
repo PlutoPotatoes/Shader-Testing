@@ -27,6 +27,7 @@ namespace StarterAssets
 		public float JumpHeight = 1.2f;
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
 		public float Gravity = -15.0f;
+		private float gravityReset;
 
 		[Space(10)]
 		[Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
@@ -109,6 +110,7 @@ namespace StarterAssets
 
 		private void Awake()
 		{
+			gravityReset = Gravity;
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
@@ -243,6 +245,7 @@ namespace StarterAssets
 
 		IEnumerator dashHandler()
         {
+			Gravity = 0f;
 			float startTime = Time.time;
 
 			while(Time.time < startTime + dashLength)
@@ -251,6 +254,7 @@ namespace StarterAssets
 
 				yield return null;
             }
+			Gravity = gravityReset;
 
         }
 

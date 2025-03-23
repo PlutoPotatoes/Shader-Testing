@@ -6,11 +6,14 @@ public class playerInteract : MonoBehaviour
     public GameObject holdPoint;
     [SerializeField] SphereCollider grabZone;
 
-    private string[] interactTags = {"Node", "Portal"};
-    private List<string> interactable;
-    private List<Collider> inYaZone = new List<Collider>();
+    private string[] interactTags = {"NPC", "Portal"};
+    private string[] pickUpTags = { "Node"};
+    private List<string> canPickUp;
+    private List<Collider> grabQueue = new List<Collider>();
     private NodeGrab heldObject;
     public bool onPlat = false;
+
+    public List<GameObject> interactQueue;
     
 
 
@@ -18,7 +21,7 @@ public class playerInteract : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        interactable = new List<string>(interactTags);
+        canPickUp = new List<string>(pickUpTags);
     }
 
     // Update is called once per frame
@@ -30,9 +33,9 @@ public class playerInteract : MonoBehaviour
 
     private void pickUp()
     {
-        if (Input.GetMouseButtonDown(1) && heldObject == null && inYaZone.Count > 0)
+        if (Input.GetMouseButtonDown(1) && heldObject == null && grabQueue.Count > 0)
         {
-            Collider interacting = inYaZone[0];
+            Collider interacting = grabQueue[0];
             switch (interacting.tag)
             {
                 case "Node":
@@ -48,17 +51,17 @@ public class playerInteract : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (interactable.Contains(other.tag))
+        if (canPickUp.Contains(other.tag))
         {
-            inYaZone.Add(other);
+            grabQueue.Add(other);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (interactable.Contains(other.tag))
+        if (canPickUp.Contains(other.tag))
         {
-            inYaZone.Remove(other);
+            grabQueue.Remove(other);
         }
     }
 
@@ -90,19 +93,22 @@ public class playerInteract : MonoBehaviour
 
     private void interact()
     {
-        if (Input.GetKeyDown("e") && inYaZone.Count > 0)
+        if (Input.GetKeyDown("e") && interactQueue.Count > 0)
         {
-            Collider interact = inYaZone[0];
+            GameObject interact = interactQueue[0];
             switch (interact.tag)
             {
                 case "Portal":
                     portalInteract(interact);
                     break;
+                case "NPC":
+                    NPCInteract(interact);
+                    break;
             }
         }
     }
 
-    private void portalInteract(Collider interact)
+    private void portalInteract(GameObject interact)
     {
         Portal portal = interact.gameObject.GetComponent<Portal>();
         transform.parent.position = portal.destination.position;
@@ -110,7 +116,18 @@ public class playerInteract : MonoBehaviour
 
     }
 
-
+    private void NPCInteract(GameObject npc)
+    {
+        NPC npcScript = npc.GetComponent<NPC>();
+        if (npcScript.isTalking)
+        {
+            npcScript.next();
+        }
+        else
+        {
+            npcScript.talk();
+        }
+    }
 
 
 }
