@@ -8,6 +8,8 @@ public class NodeData : MonoBehaviour
     private Transform pedPoint;
     private Transform pairedPedPoint;
 
+    public Transform respawnPoint;
+
 
     public void setPedestal(Pedestal ped)
     {
@@ -59,6 +61,11 @@ public class NodeData : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    public void respawn()
+    {
+        transform.SetPositionAndRotation(respawnPoint.position, Quaternion.identity);
     }
     
 }

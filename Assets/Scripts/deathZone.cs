@@ -11,9 +11,9 @@ public class deathZone : MonoBehaviour
         {
             other.GetComponent<StarterAssets.FirstPersonController>().respawn();
         }
-        else if(other.transform.parent == null)
+        else if(other.tag == "Node" && other.transform.parent == null)
         {
-            other.transform.SetPositionAndRotation(respawnPoint.position, Quaternion.identity);
+                other.GetComponent<NodeData>().respawn();
         }
     }
 }

@@ -10,5 +10,9 @@ public class respawnZone : MonoBehaviour
         {
             other.GetComponent<StarterAssets.FirstPersonController>().respawnPoint = respawn; 
         }
+        else if(other.tag == "Node")
+        {
+            other.GetComponent<NodeData>().respawnPoint = respawn;
+        }
     }
 }
