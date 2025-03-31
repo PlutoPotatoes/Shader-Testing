@@ -48,7 +48,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Brightness: 1
+    - _Brightness: 5.62
     - _Speed: 0.1
     - _Strength: 10
     m_Colors:
