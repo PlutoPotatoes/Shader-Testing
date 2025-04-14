@@ -215,13 +215,15 @@ namespace StarterAssets
 			// normalise input direction
 			inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 			Vector3 rotDir = new Vector3(_input.move.x, 0, _input.move.y);
+			
 
 			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is a move input rotate player when the player is moving
 			if (_input.move != Vector2.zero)
 			{
 				// move
-				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+				Quaternion offset = Quaternion.AngleAxis(45f, Vector3.up);
+				rotDir = offset * rotDir;
 				Quaternion newRotation = Quaternion.LookRotation(rotDir.normalized, Vector3.up);
 				playerCapsule.transform.rotation = Quaternion.RotateTowards(playerCapsule.transform.rotation, newRotation, rotationSpeed*Time.deltaTime);
 
@@ -229,7 +231,7 @@ namespace StarterAssets
 			}
 
 			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			_controller.Move(rotDir.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
 		}
 
