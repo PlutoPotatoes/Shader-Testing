@@ -83,6 +83,7 @@ namespace StarterAssets
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+		private bool canMove;
 
 		
 
@@ -131,6 +132,7 @@ namespace StarterAssets
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+			canMove = true;
 		}
 
 		private void Update()
@@ -225,13 +227,24 @@ namespace StarterAssets
 				Quaternion offset = Quaternion.AngleAxis(45f, Vector3.up);
 				rotDir = offset * rotDir;
 				Quaternion newRotation = Quaternion.LookRotation(rotDir.normalized, Vector3.up);
-				playerCapsule.transform.rotation = Quaternion.RotateTowards(playerCapsule.transform.rotation, newRotation, rotationSpeed*Time.deltaTime);
+				if (canMove)
+				{
+					playerCapsule.transform.rotation = Quaternion.RotateTowards(playerCapsule.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+				}
 
 
 			}
 
 			// move the player
-			_controller.Move(rotDir.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			if (canMove)
+			{
+				_controller.Move(rotDir.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            }
+            else
+            {
+				_controller.Move(new Vector3(0,0,0));
+
+			}
 
 		}
 
@@ -336,8 +349,18 @@ namespace StarterAssets
 
 		public void respawn()
 		{
-			transform.position = respawnPoint.position;
+			StartCoroutine(Stun(1));
+			print("die");
 		}
+
+		IEnumerator Stun(float time)
+        {
+			canMove = false;
+			transform.position = respawnPoint.position;
+			
+			yield return new WaitForSeconds(time);
+			canMove = true;
+        }
 	}
 
 	

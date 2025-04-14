@@ -16,6 +16,7 @@ public class platformCollisions : MonoBehaviour
             platformScript.carryingPlayer = true;
             other.transform.SetParent(platformScript.transform, true);
             other.gameObject.GetComponentInChildren<playerInteract>().onPlat = true;
+            print("on plat");
 
 
         }
