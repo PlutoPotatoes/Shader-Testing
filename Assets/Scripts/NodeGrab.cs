@@ -46,7 +46,7 @@ public class NodeGrab : MonoBehaviour
                 }
                 else
                 {
-                    Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 40 * Time.deltaTime);
+                    Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 10 * Time.deltaTime);
                     rb.MovePosition(dir);
                 }
             }
@@ -71,15 +71,19 @@ public class NodeGrab : MonoBehaviour
         isHeld = true;
         pedHold = null;
         grabbableCollider.excludeLayers = excludedLayers;
-        
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+
+
     }
 
     private void pedGrab()
     {
         holdPoint = pedHold;
-        Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 40 * Time.deltaTime);
+        Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 8 * Time.deltaTime);
         rb.MovePosition(dir);
         rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+
     }
 
     public void release()
@@ -94,6 +98,7 @@ public class NodeGrab : MonoBehaviour
         {
             holdPoint = null;
             rb.useGravity = true;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
         grabbableCollider.excludeLayers &= (1 << excludedLayers);
         isHeld = false;

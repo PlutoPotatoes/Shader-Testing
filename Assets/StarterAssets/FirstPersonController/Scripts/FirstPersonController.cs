@@ -39,7 +39,7 @@ namespace StarterAssets
 		[Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
 		public bool Grounded = true;
 		[Tooltip("Useful for rough ground")]
-		public float GroundedOffset = -0.14f;
+		public float GroundedOffset = -1f;
 		[Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
 		public float GroundedRadius = 0.5f;
 		[Tooltip("What layers the character uses as ground")]
@@ -84,6 +84,7 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 		private bool canMove;
+		private Vector3 correctedDir;
 
 		
 
@@ -111,7 +112,7 @@ namespace StarterAssets
 
 		private void Awake()
 		{
-			gravityReset = Gravity;
+			gravityReset = Gravity;	
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
@@ -226,6 +227,7 @@ namespace StarterAssets
 				// move
 				Quaternion offset = Quaternion.AngleAxis(45f, Vector3.up);
 				rotDir = offset * rotDir;
+				correctedDir = rotDir;
 				Quaternion newRotation = Quaternion.LookRotation(rotDir.normalized, Vector3.up);
 				if (canMove)
 				{
@@ -251,11 +253,14 @@ namespace StarterAssets
 
 		private void dash()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && dashCooldownTimer <= 0)
-            {
-				StartCoroutine(dashHandler());
-				dashCooldownTimer = dashCooldown;
-            }
+			if (Grounded)
+			{
+				if (_input.move != Vector2.zero && Input.GetKeyDown(KeyCode.Space) && dashCooldownTimer <= 0)
+				{
+					StartCoroutine(dashHandler());
+					dashCooldownTimer = dashCooldown;
+				}
+			}
         }
 
 		IEnumerator dashHandler()
@@ -265,7 +270,7 @@ namespace StarterAssets
 
 			while(Time.time < startTime + dashLength)
             {
-				_controller.Move(inputDirection * dashSpeed * Time.deltaTime);
+				_controller.Move(correctedDir * dashSpeed * Time.deltaTime);
 
 				yield return null;
             }
@@ -282,50 +287,16 @@ namespace StarterAssets
         }
 		private void JumpAndGravity()
 		{
-			if (Grounded)
-			{
-				// reset the fall timeout timer
-				_fallTimeoutDelta = FallTimeout;
-
-				// stop our velocity dropping infinitely when grounded
-				if (_verticalVelocity < 0.0f)
-				{
-					_verticalVelocity = -2f;
-				}
-
-				// Jump
-				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
-				{
-					// the square root of H * -2 * G = how much velocity needed to reach desired height
-					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-				}
-
-				// jump timeout
-				if (_jumpTimeoutDelta >= 0.0f)
-				{
-					_jumpTimeoutDelta -= Time.deltaTime;
-				}
-			}
-			else
-			{
-				// reset the jump timeout timer
-				_jumpTimeoutDelta = JumpTimeout;
-
-				// fall timeout
-				if (_fallTimeoutDelta >= 0.0f)
-				{
-					_fallTimeoutDelta -= Time.deltaTime;
-				}
-
-				// if we are not grounded, do not jump
-				_input.jump = false;
-			}
 
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-			if (_verticalVelocity < _terminalVelocity)
+			if (!Grounded && _verticalVelocity < _terminalVelocity)
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
-			}
+            }
+            else if(Grounded)
+            {
+				_verticalVelocity = 0;
+            }
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

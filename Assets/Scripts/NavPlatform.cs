@@ -13,6 +13,8 @@ public class NavPlatform : MonoBehaviour
 
     public bool carryingPlayer;
     public GameObject player;
+    public Transform playerPoint;
+
     private Vector3 currentTarget;
     private Material platMaterial;
 
@@ -65,6 +67,7 @@ public class NavPlatform : MonoBehaviour
         if (!agent.isStopped && carryingPlayer)
         {
             Shader.SetGlobalFloat("_MoshStr", 1);
+            player.transform.position = playerPoint.position;
         }
 
     }
@@ -74,6 +77,7 @@ public class NavPlatform : MonoBehaviour
         agent.isStopped = true;
         yield return new WaitForSeconds(pauseTime);
         agent.isStopped = false;
+
     }
 
     public void setPath(Transform[] path)
