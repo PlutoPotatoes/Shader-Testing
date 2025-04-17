@@ -14,7 +14,7 @@ public class boxSpin : MonoBehaviour
     {
         if (onPedestal)
         {
-            transform.Rotate(new Vector3(1, 1, 1));
+            transform.Rotate(new Vector3(0, 1, 0));
         }
     }
 

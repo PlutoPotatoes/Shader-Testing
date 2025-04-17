@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 3012458261376707145}
   - component: {fileID: 6382798023582519835}
   - component: {fileID: 9084200944040682441}
-  - component: {fileID: 1961613059053221529}
   - component: {fileID: 5891964907043866951}
   - component: {fileID: 7090345531473609690}
   - component: {fileID: 2360930542264017023}
   - component: {fileID: 725606557232140378}
   - component: {fileID: 9211084883201874171}
+  - component: {fileID: 7143940688036241516}
   m_Layer: 7
   m_Name: Node 1
   m_TagString: Node
@@ -92,27 +92,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1961613059053221529
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2163864978032700135}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.01, y: 0.01, z: 0.01}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5891964907043866951
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -138,7 +117,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!135 &7090345531473609690
 SphereCollider:
@@ -180,7 +159,7 @@ MonoBehaviour:
   alwaysIncludeLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  grabbableCollider: {fileID: 1961613059053221529}
+  grabbableCollider: {fileID: 0}
   isHeld: 0
   onPedestal: 0
   snapThreshold: 1
@@ -213,3 +192,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairedNode: {fileID: 0}
   respawnPoint: {fileID: 0}
+--- !u!64 &7143940688036241516
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163864978032700135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2137208523138566550, guid: 7324853e5cb66ca43bc576a40d1af184, type: 3}

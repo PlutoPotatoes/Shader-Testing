@@ -71,6 +71,7 @@ public class NodeGrab : MonoBehaviour
         isHeld = true;
         pedHold = null;
         grabbableCollider.excludeLayers = excludedLayers;
+        transform.rotation = Quaternion.identity;
         rb.constraints = RigidbodyConstraints.FreezeAll;
 
 
@@ -98,7 +99,7 @@ public class NodeGrab : MonoBehaviour
         {
             holdPoint = null;
             rb.useGravity = true;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.constraints = RigidbodyConstraints.None;
         }
         grabbableCollider.excludeLayers &= (1 << excludedLayers);
         isHeld = false;

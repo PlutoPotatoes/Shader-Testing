@@ -29,12 +29,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _DstBlend: 10
-    - _Glossiness: 0
+    - _Glossiness: 0.57
     - _Metallic: 0.149
     - _Mode: 3
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.34625125, g: 0.8993711, b: 0.29130566, a: 0.9490196}
-    - _EmissionColor: {r: 0.93174654, g: 0.32119808, b: 0.3096054, a: 1}
+    - _Color: {r: 0.8980392, g: 0.6652097, b: 0.29019606, a: 0.9490196}
+    - _EmissionColor: {r: 0.05440942, g: 0.01539889, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

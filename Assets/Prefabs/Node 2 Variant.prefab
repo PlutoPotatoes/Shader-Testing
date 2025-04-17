@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Node 2 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2360930542264017023, guid: da569718fadac434c8bb661105a0d943, type: 3}
+      propertyPath: grabbableCollider
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3012458261376707145, guid: da569718fadac434c8bb661105a0d943, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.4363427
@@ -56,11 +60,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -3213388140244033404, guid: 4637af3eb59940341bc4185bd52f67f7, type: 3}
+    - target: {fileID: 7143940688036241516, guid: da569718fadac434c8bb661105a0d943, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 9084200944040682441, guid: da569718fadac434c8bb661105a0d943, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 5b1752e6cd35c9841af82ab2b0b9fa8c, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1961613059053221529, guid: da569718fadac434c8bb661105a0d943, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
