@@ -103,9 +103,9 @@ public class NavPlatform : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void setColor(Color nodeColor)
+    public void setColor(Material mat)
     {
-        platform.GetComponent<Renderer>().material.color = nodeColor;
+        platform.GetComponent<Renderer>().material = mat;
     }
 
 }

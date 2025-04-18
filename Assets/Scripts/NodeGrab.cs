@@ -15,6 +15,7 @@ public class NodeGrab : MonoBehaviour
     public float snapThreshold;
     public Transform pedHold;
     public Material mat;
+    public bool isLocked;
 
     
 
@@ -65,14 +66,17 @@ public class NodeGrab : MonoBehaviour
         
     public void grab(GameObject player, GameObject playerHoldPoint)
     {
-        rb.useGravity = false;
-        transform.position = playerHoldPoint.transform.position;
-        holdPoint = playerHoldPoint.transform;
-        isHeld = true;
-        pedHold = null;
-        grabbableCollider.excludeLayers = excludedLayers;
-        transform.rotation = Quaternion.identity;
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+        if (!isLocked)
+        {
+            rb.useGravity = false;
+            transform.position = playerHoldPoint.transform.position;
+            holdPoint = playerHoldPoint.transform;
+            isHeld = true;
+            pedHold = null;
+            grabbableCollider.excludeLayers = excludedLayers;
+            transform.rotation = Quaternion.identity;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
 
 
     }
