@@ -179,11 +179,15 @@ namespace StarterAssets
 					animator.SetBool("WalkTrigger", false);
 					animator.SetBool("RunTrigger", true);
 					animator.SetBool("IdleTrigger", false);
+					animator.SetBool("RollTrigger", false);
+
 					break;
 				case animatorState.WALKING:
 					animator.SetBool("WalkTrigger", true);
 					animator.SetBool("RunTrigger", false);
 					animator.SetBool("IdleTrigger", false);
+					animator.SetBool("RollTrigger", false);
+
 					break;
 				case animatorState.ROLLING:
 					animator.SetBool("RollTrigger", true);
@@ -327,19 +331,20 @@ namespace StarterAssets
         {
 			Gravity = 0f;
 			float startTime = Time.time;
-
-			while(Time.time < startTime + dashLength)
+			playerState = animatorState.ROLLING;
+			while (Time.time < startTime + dashLength)
             {
-				playerState = animatorState.ROLLING;
 				_controller.Move(correctedDir * dashSpeed * Time.deltaTime);
 
 				yield return null;
             }
 			Gravity = gravityReset;
+			playerState = animatorState.WALKING;
 
-        }
 
-        private void cooldowns()
+		}
+
+		private void cooldowns()
         {
 			if(dashCooldownTimer > 0)
             {

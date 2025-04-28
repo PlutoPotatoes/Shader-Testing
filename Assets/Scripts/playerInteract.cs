@@ -33,7 +33,7 @@ public class playerInteract : MonoBehaviour
 
     private void pickUp()
     {
-        if (Input.GetMouseButtonDown(1) && heldObject == null && grabQueue.Count > 0)
+        if (Input.GetKeyDown("e") && heldObject == null && grabQueue.Count > 0)
         {
             Collider interacting = grabQueue[0];
             switch (interacting.tag)
@@ -46,7 +46,7 @@ public class playerInteract : MonoBehaviour
                     break;
 
             }
-        }else if(heldObject !=null && Input.GetMouseButtonDown(1))
+        }else if(heldObject !=null && Input.GetKeyDown("e"))
         {
             releaseObject();
         }

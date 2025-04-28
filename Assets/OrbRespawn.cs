@@ -13,7 +13,7 @@ public class OrbRespawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.position.y < -16) respawn();
     }
 
     public void respawn()
