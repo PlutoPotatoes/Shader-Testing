@@ -15,6 +15,7 @@ public class PickupTooltip : MonoBehaviour
     {
         tooltip = GetComponent<SpriteRenderer>();
         holdPoint = transform;
+        tooltip.enabled = false;
 
     }
 
