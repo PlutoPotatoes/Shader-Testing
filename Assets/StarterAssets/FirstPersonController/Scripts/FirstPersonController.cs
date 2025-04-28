@@ -54,6 +54,8 @@ namespace StarterAssets
 		public float BottomClamp = -90.0f;
 		[Tooltip("Active Player Camera")]
 		public Camera mainCam;
+
+		[Header("Misc")]
 		[Tooltip("Layers to Detect for Interaction")]
 		public LayerMask interactLayers;
 		[Tooltip("Player Respawn Point")]
@@ -62,6 +64,10 @@ namespace StarterAssets
 		public float dashSpeed;
 		[Tooltip("Player Dash Length")]
 		public float dashLength;
+		[Tooltip("Player Animator")]
+		public Animator animator;
+
+
 
 		//testing vars
 
@@ -86,6 +92,14 @@ namespace StarterAssets
 		private bool canMove;
 		private Vector3 correctedDir;
 
+		//animator
+		private enum animatorState{
+			IDLE,
+			WALKING,
+			RUNNING,
+			ROLLING
+        };
+		private animatorState playerState;
 		
 
 	
@@ -147,6 +161,39 @@ namespace StarterAssets
 				respawn();
             }
 			cooldowns();
+		}
+
+		private void animationHandler()
+        {
+            switch (playerState)
+            {
+				case animatorState.IDLE:
+					animator.SetBool("WalkTrigger", false);
+					animator.SetBool("RunTrigger", false);
+					animator.SetBool("RollTrigger", false);
+					animator.SetBool("IdleTrigger", true);
+					break;
+				case animatorState.RUNNING:
+					animator.SetBool("WalkTrigger", false);
+					animator.SetBool("RunTrigger", false);
+					animator.SetBool("RollTrigger", false);
+					animator.SetBool("IdleTrigger", false);
+					break;
+				case animatorState.WALKING:
+					animator.SetBool("WalkTrigger", false);
+					animator.SetBool("RunTrigger", false);
+					animator.SetBool("RollTrigger", false);
+					animator.SetBool("IdleTrigger", false);
+					break;
+				case animatorState.ROLLING:
+					animator.SetBool("WalkTrigger", false);
+					animator.SetBool("RunTrigger", false);
+					animator.SetBool("RollTrigger", false);
+					animator.SetBool("IdleTrigger", false);
+					break;
+
+
+			}
 		}
 
 		private void LateUpdate()
