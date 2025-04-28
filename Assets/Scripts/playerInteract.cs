@@ -69,6 +69,7 @@ public class playerInteract : MonoBehaviour
     {
         if (!onPlat)
         {
+            print(node);
             heldObject = node.gameObject.GetComponent<NodeGrab>();
             heldObject.grab(gameObject, holdPoint);
         }

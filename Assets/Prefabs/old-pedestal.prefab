@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 267517965950881924}
   - component: {fileID: 7743826162712870811}
   m_Layer: 7
-  m_Name: Node Pedestal
+  m_Name: old-pedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,6 +4,7 @@ public class Pedestal : MonoBehaviour
 {
     [SerializeField] Transform holdPoint;
     [SerializeField] GameObject movingPlatformPrefab;
+    [SerializeField] GameObject forceField;
     public Transform platformDockPoint;
 
     private GameObject node;
@@ -11,12 +12,14 @@ public class Pedestal : MonoBehaviour
     private NodeData nodeData;
     private GameObject platformInstance;
     public bool hasPlatform;
+    public bool isLocked;
 
 
     void Start()
     {
         platformInstance = null;
         hasPlatform = false;
+        forceField.SetActive(isLocked);
         //tryCreateRoute();
 
     }
@@ -40,6 +43,7 @@ public class Pedestal : MonoBehaviour
             nodeScript.pedHold = holdPoint;
             nodeData.setPedestal(this);
             nodeScript.release();
+            nodeScript.isLocked = isLocked;
             tryCreateRoute();
 
 
@@ -81,7 +85,7 @@ public class Pedestal : MonoBehaviour
             nodeData.getPairedPedestal().platformInstance = this.platformInstance;
             NavPlatform platformScript = platformInstance.GetComponentInChildren<NavPlatform>();
             platformScript.setPath(nodeData.getPath());
-            platformScript.setColor(nodeScript.mat.color);
+            platformScript.setColor(nodeScript.mat);
 
 
         }

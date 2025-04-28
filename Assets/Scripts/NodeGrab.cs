@@ -15,6 +15,7 @@ public class NodeGrab : MonoBehaviour
     public float snapThreshold;
     public Transform pedHold;
     public Material mat;
+    public bool isLocked;
 
     
 
@@ -46,7 +47,7 @@ public class NodeGrab : MonoBehaviour
                 }
                 else
                 {
-                    Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 40 * Time.deltaTime);
+                    Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 10 * Time.deltaTime);
                     rb.MovePosition(dir);
                 }
             }
@@ -65,21 +66,29 @@ public class NodeGrab : MonoBehaviour
         
     public void grab(GameObject player, GameObject playerHoldPoint)
     {
-        rb.useGravity = false;
-        transform.position = playerHoldPoint.transform.position;
-        holdPoint = playerHoldPoint.transform;
-        isHeld = true;
-        pedHold = null;
-        grabbableCollider.excludeLayers = excludedLayers;
-        
+        if (!isLocked)
+        {
+            rb.useGravity = false;
+            transform.position = playerHoldPoint.transform.position;
+            holdPoint = playerHoldPoint.transform;
+            isHeld = true;
+            pedHold = null;
+            grabbableCollider.excludeLayers = excludedLayers;
+            transform.rotation = Quaternion.identity;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+
     }
 
     private void pedGrab()
     {
         holdPoint = pedHold;
-        Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 40 * Time.deltaTime);
+        Vector3 dir = Vector3.Lerp(transform.position, holdPoint.transform.position, 8 * Time.deltaTime);
         rb.MovePosition(dir);
         rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+
     }
 
     public void release()
@@ -94,6 +103,7 @@ public class NodeGrab : MonoBehaviour
         {
             holdPoint = null;
             rb.useGravity = true;
+            rb.constraints = RigidbodyConstraints.None;
         }
         grabbableCollider.excludeLayers &= (1 << excludedLayers);
         isHeld = false;
