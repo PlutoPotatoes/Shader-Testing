@@ -7,7 +7,7 @@ public class playerInteract : MonoBehaviour
     [SerializeField] SphereCollider grabZone;
 
     private string[] interactTags = {"NPC", "Portal"};
-    private string[] pickUpTags = { "Node"};
+    private string[] pickUpTags = { "Node", "Portal Orb"};
     private List<string> canPickUp;
     private List<Collider> grabQueue = new List<Collider>();
     private NodeGrab heldObject;
@@ -39,6 +39,9 @@ public class playerInteract : MonoBehaviour
             switch (interacting.tag)
             {
                 case "Node":
+                    grabNode(interacting);
+                    break;
+                case "Portal Orb":
                     grabNode(interacting);
                     break;
 

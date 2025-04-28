@@ -16,5 +16,9 @@ public class respawnZone : MonoBehaviour
         {
             other.GetComponent<NodeData>().respawnPoint = respawn;
         }
+        else if (other.tag == "Portal Orb")
+        {
+            other.GetComponent<OrbRespawn>().respawnPoint = respawn;
+        }
     }
 }

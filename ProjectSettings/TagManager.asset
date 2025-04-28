@@ -12,6 +12,7 @@ TagManager:
   - End Pedestal
   - Portal
   - NPC
+  - Portal Orb
   layers:
   - Default
   - TransparentFX
