@@ -14,7 +14,6 @@ public class NPC : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        tooltip.SetActive(false);
         dialogueBox.SetActive(false);
         dialogueState = 0;
         isTalking = false;

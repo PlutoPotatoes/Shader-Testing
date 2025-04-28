@@ -104,6 +104,7 @@ public class playerInteract : MonoBehaviour
                     break;
                 case "NPC":
                     NPCInteract(interact);
+                    print("Talking");
                     break;
             }
         }

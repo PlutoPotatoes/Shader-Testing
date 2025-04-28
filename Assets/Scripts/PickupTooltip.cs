@@ -31,6 +31,7 @@ public class PickupTooltip : MonoBehaviour
         if (other.tag == "Player")
         {
             tooltip.enabled = true;
+            print("player");
 
         }
     }
