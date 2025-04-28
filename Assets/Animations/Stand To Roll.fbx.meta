@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e0516b1b02402472a8038680a4dafba5
+guid: 2e7be5f8557a849cd9349acf52b13e3d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: takingitem
+      name: roll
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 141
+      lastFrame: 71
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
