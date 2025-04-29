@@ -6,6 +6,7 @@ public class NodeGrab : MonoBehaviour
     [SerializeField] LayerMask excludedLayers;
     [SerializeField] LayerMask alwaysIncludeLayers;
     [SerializeField] Collider grabbableCollider;
+    [SerializeField] PickupTooltip tooltip;
 
     private const float holdStr = 0.9f;
     private Transform holdPoint;
@@ -76,6 +77,11 @@ public class NodeGrab : MonoBehaviour
             grabbableCollider.excludeLayers = excludedLayers;
             transform.rotation = Quaternion.identity;
             rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        if (tooltip != null)
+        {
+            tooltip.showTooltip = false;
         }
 
 

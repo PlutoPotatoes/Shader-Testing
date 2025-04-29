@@ -97,7 +97,8 @@ namespace StarterAssets
 			IDLE,
 			WALKING,
 			RUNNING,
-			ROLLING
+			ROLLING,
+			DYING
         };
 		private animatorState playerState;
 		
@@ -174,12 +175,16 @@ namespace StarterAssets
 					animator.SetBool("RunTrigger", false);
 					animator.SetBool("RollTrigger", false);
 					animator.SetBool("IdleTrigger", true);
+					animator.SetBool("DeathTrigger", false);
+
 					break;
 				case animatorState.RUNNING:
 					animator.SetBool("WalkTrigger", false);
 					animator.SetBool("RunTrigger", true);
 					animator.SetBool("IdleTrigger", false);
 					animator.SetBool("RollTrigger", false);
+					animator.SetBool("DeathTrigger", false);
+
 
 					break;
 				case animatorState.WALKING:
@@ -187,11 +192,23 @@ namespace StarterAssets
 					animator.SetBool("RunTrigger", false);
 					animator.SetBool("IdleTrigger", false);
 					animator.SetBool("RollTrigger", false);
+					animator.SetBool("DeathTrigger", false);
+
 
 					break;
 				case animatorState.ROLLING:
 					animator.SetBool("RollTrigger", true);
 					animator.SetBool("IdleTrigger", false);
+					animator.SetBool("DeathTrigger", false);
+
+					break;
+
+				case animatorState.DYING:
+					animator.SetBool("WalkTrigger", false);
+					animator.SetBool("RunTrigger", false);
+					animator.SetBool("RollTrigger", false);
+					animator.SetBool("IdleTrigger", false);
+					animator.SetBool("DeathTrigger", true);
 					break;
 
 
@@ -246,7 +263,7 @@ namespace StarterAssets
 			if (_input.move == Vector2.zero)
 			{
 				targetSpeed = 0.0f;
-				playerState = animatorState.IDLE;
+				if(playerState != animatorState.DYING) playerState = animatorState.IDLE;
 			}
 
 			// a reference to the players current horizontal velocity
@@ -394,8 +411,9 @@ namespace StarterAssets
         {
 			canMove = false;
 			transform.position = respawnPoint.position;
-			
-			yield return new WaitForSeconds(time);
+			playerState = animatorState.DYING;
+			yield return new WaitForSeconds(2.5f);
+			playerState = animatorState.IDLE;
 			canMove = true;
         }
 	}

@@ -6,6 +6,7 @@ public class PickupTooltip : MonoBehaviour
     
     public SpriteRenderer tooltip;
     public Camera MainCamera;
+    public bool showTooltip;
 
     private Transform holdPoint;
 
@@ -16,12 +17,18 @@ public class PickupTooltip : MonoBehaviour
         tooltip = GetComponent<SpriteRenderer>();
         holdPoint = transform;
         tooltip.enabled = false;
+        showTooltip = true;
 
     }
 
     private void Update()
     {
         transform.forward = MainCamera.transform.forward;
+        if (!showTooltip)
+        {
+            tooltip.enabled = false;
+
+        }
     }
 
 
@@ -30,8 +37,7 @@ public class PickupTooltip : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            tooltip.enabled = true;
-            print("player");
+            tooltip.enabled = showTooltip;
 
         }
     }
