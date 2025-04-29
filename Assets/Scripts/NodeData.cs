@@ -10,7 +10,11 @@ public class NodeData : MonoBehaviour
 
     public Transform respawnPoint;
 
+    private void Update()
+    {
+        if (transform.position.y < -16) respawn();
 
+    }
     public void setPedestal(Pedestal ped)
     {
         if (ped)

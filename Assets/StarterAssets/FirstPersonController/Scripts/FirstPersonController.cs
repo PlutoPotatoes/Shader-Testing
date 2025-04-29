@@ -97,7 +97,8 @@ namespace StarterAssets
 			IDLE,
 			WALKING,
 			RUNNING,
-			ROLLING
+			ROLLING,
+			DYING
         };
 		private animatorState playerState;
 		
@@ -148,6 +149,7 @@ namespace StarterAssets
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
 			canMove = true;
+			playerState = animatorState.IDLE;
 		}
 
 		private void Update()
@@ -161,6 +163,7 @@ namespace StarterAssets
 				respawn();
             }
 			cooldowns();
+			animationHandler();
 		}
 
 		private void animationHandler()
@@ -172,24 +175,40 @@ namespace StarterAssets
 					animator.SetBool("RunTrigger", false);
 					animator.SetBool("RollTrigger", false);
 					animator.SetBool("IdleTrigger", true);
+					animator.SetBool("DeathTrigger", false);
+
 					break;
 				case animatorState.RUNNING:
 					animator.SetBool("WalkTrigger", false);
-					animator.SetBool("RunTrigger", false);
-					animator.SetBool("RollTrigger", false);
+					animator.SetBool("RunTrigger", true);
 					animator.SetBool("IdleTrigger", false);
+					animator.SetBool("RollTrigger", false);
+					animator.SetBool("DeathTrigger", false);
+
+
 					break;
 				case animatorState.WALKING:
-					animator.SetBool("WalkTrigger", false);
+					animator.SetBool("WalkTrigger", true);
 					animator.SetBool("RunTrigger", false);
-					animator.SetBool("RollTrigger", false);
 					animator.SetBool("IdleTrigger", false);
+					animator.SetBool("RollTrigger", false);
+					animator.SetBool("DeathTrigger", false);
+
+
 					break;
 				case animatorState.ROLLING:
+					animator.SetBool("RollTrigger", true);
+					animator.SetBool("IdleTrigger", false);
+					animator.SetBool("DeathTrigger", false);
+
+					break;
+
+				case animatorState.DYING:
 					animator.SetBool("WalkTrigger", false);
 					animator.SetBool("RunTrigger", false);
 					animator.SetBool("RollTrigger", false);
 					animator.SetBool("IdleTrigger", false);
+					animator.SetBool("DeathTrigger", true);
 					break;
 
 
@@ -235,11 +254,17 @@ namespace StarterAssets
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
+
+
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is no input, set the target speed to 0
-			if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+			if (_input.move == Vector2.zero)
+			{
+				targetSpeed = 0.0f;
+				if(playerState != animatorState.DYING) playerState = animatorState.IDLE;
+			}
 
 			// a reference to the players current horizontal velocity
 			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -279,6 +304,15 @@ namespace StarterAssets
 				if (canMove)
 				{
 					playerCapsule.transform.rotation = Quaternion.RotateTowards(playerCapsule.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+					if (_input.sprint)
+					{
+						playerState = animatorState.RUNNING;
+                    }
+                    else
+                    {
+						playerState = animatorState.WALKING;
+
+					}
 				}
 
 
@@ -314,18 +348,20 @@ namespace StarterAssets
         {
 			Gravity = 0f;
 			float startTime = Time.time;
-
-			while(Time.time < startTime + dashLength)
+			playerState = animatorState.ROLLING;
+			while (Time.time < startTime + dashLength)
             {
 				_controller.Move(correctedDir * dashSpeed * Time.deltaTime);
 
 				yield return null;
             }
 			Gravity = gravityReset;
+			playerState = animatorState.WALKING;
 
-        }
 
-        private void cooldowns()
+		}
+
+		private void cooldowns()
         {
 			if(dashCooldownTimer > 0)
             {
@@ -375,8 +411,9 @@ namespace StarterAssets
         {
 			canMove = false;
 			transform.position = respawnPoint.position;
-			
-			yield return new WaitForSeconds(time);
+			playerState = animatorState.DYING;
+			yield return new WaitForSeconds(2.5f);
+			playerState = animatorState.IDLE;
 			canMove = true;
         }
 	}

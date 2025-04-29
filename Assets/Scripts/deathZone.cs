@@ -14,5 +14,9 @@ public class deathZone : MonoBehaviour
         {
                 other.GetComponent<NodeData>().respawn();
         }
+        else if (other.tag == "Portal Orb" && other.transform.parent == null)
+        {
+            other.GetComponent<OrbRespawn>().respawn();
+        }
     }
 }

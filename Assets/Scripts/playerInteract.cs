@@ -7,7 +7,7 @@ public class playerInteract : MonoBehaviour
     [SerializeField] SphereCollider grabZone;
 
     private string[] interactTags = {"NPC", "Portal"};
-    private string[] pickUpTags = { "Node"};
+    private string[] pickUpTags = { "Node", "Portal Orb"};
     private List<string> canPickUp;
     private List<Collider> grabQueue = new List<Collider>();
     private NodeGrab heldObject;
@@ -33,7 +33,7 @@ public class playerInteract : MonoBehaviour
 
     private void pickUp()
     {
-        if (Input.GetMouseButtonDown(1) && heldObject == null && grabQueue.Count > 0)
+        if (Input.GetKeyDown("e") && heldObject == null && grabQueue.Count > 0)
         {
             Collider interacting = grabQueue[0];
             switch (interacting.tag)
@@ -41,9 +41,12 @@ public class playerInteract : MonoBehaviour
                 case "Node":
                     grabNode(interacting);
                     break;
+                case "Portal Orb":
+                    grabNode(interacting);
+                    break;
 
             }
-        }else if(heldObject !=null && Input.GetMouseButtonDown(1))
+        }else if(heldObject !=null && Input.GetKeyDown("e"))
         {
             releaseObject();
         }
@@ -104,6 +107,7 @@ public class playerInteract : MonoBehaviour
                     break;
                 case "NPC":
                     NPCInteract(interact);
+                    print("Talking");
                     break;
             }
         }
