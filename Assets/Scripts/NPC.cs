@@ -24,11 +24,6 @@ public class NPC : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void talk()
     {
@@ -40,18 +35,19 @@ public class NPC : MonoBehaviour
     public void next()
     {
         StopAllCoroutines();
-        if (dialogueState == dialogues.Length - 1)
+        if (dialogueState+1 < dialogues.Length)
+        {
+            dialogueState++;
+            dialogues[dialogueState].SetActive(false);
+            StartCoroutine(dialogue(dialogueState));
+
+        }
+        else
         {
             dialogueBox.SetActive(false);
             dialogues[dialogueState].SetActive(false);
             isTalking = false;
             dialogueState = 0;
-        }
-        else
-        {
-            dialogues[dialogueState].SetActive(false);
-            dialogueState++;
-            StartCoroutine(dialogue(dialogueState));
         }
         
     }
